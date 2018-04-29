@@ -21,7 +21,7 @@ public class Grafo {
     }
 
     public float getMeanEdge () {
-        return 0;
+        return (2 * arestas.size()) / vertices.size();
     }
 
     public String graphRepresentation (Representacao type) {
