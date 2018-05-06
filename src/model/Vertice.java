@@ -8,6 +8,11 @@ public class Vertice {
     private Integer id;
     private Boolean visitado;
 
+    public Vertice(int id) {
+        this .id = id;
+        this.visitado = false;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -22,5 +27,15 @@ public class Vertice {
 
     public void setVisitado(Boolean visitado) {
         this.visitado = visitado;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Vertice) {
+            Vertice vertice = (Vertice) obj;
+            return vertice.id == this.id;
+        }
+
+        return false;
     }
 }
