@@ -20,12 +20,13 @@ public class IO {
     private void readArchive(String path, ProcessArgs processArgs) {
         File file = new File(path);
         try {
-            Scanner input = new Scanner(new FileInputStream(file));
+            Scanner input = new Scanner(new FileReader(file));
             input.nextLine();
             while (input.hasNext()) {
                 String[] arguments = input.nextLine().split(" ");
                 processArgs.process(arguments);
             }
+            input.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -44,6 +45,7 @@ public class IO {
             arestas.add(aresta);
             vertices.add(vInicial);
             vertices.add(vFinal);
+            System.out.println(Arrays.toString(args));
         });
 
         grafo.setArestas(arestas);
