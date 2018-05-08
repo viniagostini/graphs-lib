@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * Classe que representa a entidade Vértice.
  */
@@ -27,6 +29,11 @@ public class Vertice {
 
     public void setVisitado(Boolean visitado) {
         this.visitado = visitado;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

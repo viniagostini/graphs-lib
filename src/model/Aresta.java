@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * Classe que representa a entidade Atesta.
  */
@@ -37,6 +39,12 @@ public class Aresta {
 
     public void setPeso(float peso) {
         this.peso = peso;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(verticeInicial, verticeFinal, peso);
     }
 
     @Override
