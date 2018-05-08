@@ -1,14 +1,15 @@
 package model;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Classe que representa a entridade Grafo.
  */
 public class Grafo {
 
-    private List<Aresta> arestas;
-    private List<Vertice> vertices;
+    private Set<Aresta> arestas;
+    private Set<Vertice> vertices;
 
     //contrutores
 
@@ -60,19 +61,19 @@ public class Grafo {
         return null;
     }
 
-    public List<Aresta> getArestas() {
+    public Set<Aresta> getArestas() {
         return arestas;
     }
 
-    public void setArestas(List<Aresta> arestas) {
+    public void setArestas(Set<Aresta> arestas) {
         this.arestas = arestas;
     }
 
-    public List<Vertice> getVertices() {
+    public Set<Vertice> getVertices() {
         return vertices;
     }
 
-    public void setVertices(List<Vertice> vertices) {
+    public void setVertices(Set<Vertice> vertices) {
         this.vertices = vertices;
     }
 }
