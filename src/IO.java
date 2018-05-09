@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class IO {
 
-    private final int DEFAULT_WEIGHT = 1;
+    private final double DEFAULT_WEIGHT = 1;
 
     @FunctionalInterface
     private interface ProcessArgs {
@@ -33,6 +33,14 @@ public class IO {
     }
 
     public Grafo read (String path) {
+        return readGraph(path, false);
+    }
+
+    public Grafo readWeightedGraph (String path) {
+        return readGraph(path, true);
+    }
+
+    private Grafo readGraph(String path, boolean isWeighted) {
         Grafo grafo = new Grafo();
         Set<Aresta> arestas = new HashSet<>();
         Set<Vertice> vertices = new HashSet<>();
@@ -40,7 +48,8 @@ public class IO {
         readArchive(path, (args) -> {
             Vertice vInicial = new Vertice(Integer.parseInt(args[0]));
             Vertice vFinal = new Vertice(Integer.parseInt(args[1]));
-            Aresta aresta = new Aresta(vInicial, vFinal, DEFAULT_WEIGHT);
+            double weight = isWeighted ? Double.parseDouble(args[2]) : DEFAULT_WEIGHT;
+            Aresta aresta = new Aresta(vInicial, vFinal, weight);
 
             arestas.add(aresta);
             vertices.add(vInicial);
@@ -51,11 +60,6 @@ public class IO {
         grafo.setArestas(arestas);
         grafo.setVertices(vertices);
         return grafo;
-    }
-
-    public Grafo readWeightedGraph (String path) {
-        // implementar
-        return null;
     }
 
 }
