@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -54,11 +55,48 @@ public class Grafo {
     }
 
     private String graphAdjacencyMatrix () {
-        return null;
+    	StringBuilder matrixAdjacencias = new StringBuilder();
+    	matrixAdjacencias.append("Matriz de adjacência" + System.getProperty("line.separator"));
+    	matrixAdjacencias.append("     "+Arrays.toString(this.vertices.toArray()) + System.getProperty("line.separator"));
+        
+    	for(Vertice vLinha : vertices){
+        	matrixAdjacencias.append("[" + vLinha.getId() + "]");
+        	for(Vertice vColuna : vertices){
+        		boolean adjacente = checkAdjacent(vLinha, vColuna);
+        		if(adjacente){
+        			matrixAdjacencias.append("    1");
+        		}else {
+        			matrixAdjacencias.append("    0");
+        		}
+        		
+        	}
+        	matrixAdjacencias.append(System.getProperty("line.separator"));
+        }
+        return matrixAdjacencias.toString();
     }
 
+	private boolean checkAdjacent(Vertice verticeA, Vertice verticeB) {
+		boolean adjacente = false;
+		for(Aresta aresta: arestas){
+		    if(aresta.getVerticeInicial().equals(verticeA) && aresta.getVerticeFinal().equals(verticeB)) {
+		    	adjacente = true;
+		    }
+		}
+		return adjacente;
+	}
+
     private String graphAdjacencyList () {
-        return null;
+    	StringBuilder listaAdjacencias = new StringBuilder();
+        for(Vertice vAtual : vertices){
+            listaAdjacencias.append("Lista de adjacências do vértice "+ vAtual.getId() + ": ");
+            for(Aresta aresta: arestas){
+            	if(aresta.getVerticeInicial().equals(vAtual)) {
+            		listaAdjacencias.append("-> " + aresta.getVerticeFinal().getId() + " ");
+            	}
+            }
+            listaAdjacencias.append(System.getProperty("line.separator"));
+        }
+        return listaAdjacencias.toString();
     }
 
     public Set<Aresta> getArestas() {

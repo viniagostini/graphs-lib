@@ -7,7 +7,9 @@ import java.util.Objects;
  */
 public class Vertice {
 
-    private Integer id;
+
+
+	private Integer id;
     private Boolean visitado;
 
     public Vertice(int id) {
@@ -45,4 +47,9 @@ public class Vertice {
 
         return false;
     }
+    
+    @Override
+	public String toString() {
+		return "[" + id + "]";
+	}
 }
