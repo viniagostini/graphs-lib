@@ -75,6 +75,7 @@ public class IO {
 
         grafo.setArestas(arestas);
         grafo.setVertices(vertices);
+        grafo.mst();
         return grafo;
     }
 
