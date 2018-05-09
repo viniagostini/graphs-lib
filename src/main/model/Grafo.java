@@ -1,6 +1,6 @@
-package model;
+package main.model;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,14 +11,23 @@ public class Grafo {
     private Set<Aresta> arestas;
     private Set<Vertice> vertices;
 
-//contrutores
-
-    public int getVertexNumber () {
-        return 0;
+    public Grafo () {
+        arestas = new HashSet<>();
+        vertices = new HashSet<>();
     }
 
+    /**
+     * Retorna o número de vértices do Grafo.
+     */
+    public int getVertexNumber () {
+        return vertices.size();
+    }
+
+    /**
+     * Retorna o número de arestas do Grafo.
+     */
     public int getEdgeNumber () {
-        return 0;
+        return arestas.size();
     }
 
     public float getMeanEdge () {

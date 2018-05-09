@@ -1,4 +1,4 @@
-package view;
+package main.view;
 
 /**
  * Created by viniagostini on 28/04/2018.

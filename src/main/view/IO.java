@@ -1,8 +1,8 @@
-package view;
+package main.view;
 
-import model.Aresta;
-import model.Grafo;
-import model.Vertice;
+import main.model.Aresta;
+import main.model.Grafo;
+import main.model.Vertice;
 
 import java.io.*;
 import java.util.*;
@@ -34,10 +34,24 @@ public class IO {
         }
     }
 
+    /**
+     * Lê e constrói um {@link Grafo} sem peso a partir das informações do arquivo passado.
+     *
+     * @param path Caminho para o arquivo que contém as informações do Grafo.
+     *
+     * @return o grafo contruído.
+     */
     public Grafo read (String path) {
         return readGraph(path, false);
     }
 
+    /**
+     * Lê e constrói um {@link Grafo} com peso a partir das informações do arquivo passado.
+     *
+     * @param path Caminho para o arquivo que contém as informações do Grafo.
+     *
+     * @return o grafo contruído.
+     */
     public Grafo readWeightedGraph (String path) {
         return readGraph(path, true);
     }
