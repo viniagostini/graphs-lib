@@ -1,17 +1,33 @@
-import model.Grafo;
-import model.Representacao;
-import model.Vertice;
+package main.controller;
+
+import main.model.Grafo;
+import main.model.Representacao;
+import main.model.Vertice;
 
 /**
  * Controller responsável por gerenciar as operações de Grafos.
  */
 public class Controller {
 
-
+    /**
+     * Retorna o número de vértices do {@link Grafo} passado como parâmetro.
+     *
+     * @param graph
+     *
+     * @return número de vértices do Grafo.
+     */
     public int getVertexNumber (Grafo graph) {
         return graph.getVertexNumber();
     }
 
+
+    /**
+     * Retorna o número de arestas do {@link Grafo} passado como parâmetro
+     *
+     * @param graph
+     *
+     * @return número de arestas do Grafo.
+     */
     public int getEdgeNumber (Grafo graph) {
         return graph.getEdgeNumber();
     }

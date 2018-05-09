@@ -1,13 +1,12 @@
-package model;
+package main.model;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
-
-
 
 /**
  * Classe que representa a entridade Grafo.
@@ -16,29 +15,38 @@ public class Grafo {
 
     private Set<Aresta> arestas;
     private Set<Vertice> vertices;
-    
+
 private int pai[] = new int[100];
-	
+
 	public int find(int x) {
 		if(pai[x] == x) {
 			return x;
 		}return find(pai[x]);
 	}
-	
+
 	public void unite(int x, int y) {
 		int fx = find(x);
 		int fy = find(y);
 		pai[fx]=fy;
 	}
 
-//contrutores
-
-    public int getVertexNumber () {
-        return 0;
+    public Grafo () {
+        arestas = new HashSet<>();
+        vertices = new HashSet<>();
     }
 
+    /**
+     * Retorna o número de vértices do Grafo.
+     */
+    public int getVertexNumber () {
+        return vertices.size();
+    }
+
+    /**
+     * Retorna o número de arestas do Grafo.
+     */
     public int getEdgeNumber () {
-        return 0;
+        return arestas.size();
     }
 
     public float getMeanEdge () {
@@ -75,35 +83,35 @@ private int pai[] = new int[100];
 		//int arestas_mst= 0;
 		int a,b;
 		double w;
-		
+
 		for (int i = 0; i < pai.length; i++) {
 			pai[i]=i;
 		}
-		
+
 		ArrayList<Aresta> arrayArestas = new ArrayList<Aresta>();
 		for (Aresta aresta : arestas) {
 			arrayArestas.add(aresta);
 		}
-		
+
 		ArrayList<Vertice> arrayVertices = new ArrayList<Vertice>();
 		for (Vertice vertice : vertices) {
 			arrayVertices.add(vertice);
 		}
-		
+
 		Collections.sort(arrayArestas, new Comparator<Aresta>() {
 			@Override public int compare(Aresta a1, Aresta a2) {
 				return (int) (a1.getPeso() - a2.getPeso());
 			}
 		});
-		
+
 		System.out.println(arrayArestas.size());
 		System.out.println(arrayVertices.size());
-		
+
 		while( (vertices_mst < arrayArestas.size())) {
 			a= arrayArestas.get(vertices_mst).getVerticeInicial().getId();
 			b= arrayArestas.get(vertices_mst).getVerticeFinal().getId();
 			w = arrayArestas.get(vertices_mst).getPeso();
-			
+
 			if( this.find(a) != this.find(b)) {
 				this.unite(a, b);
 				peso_mst += w;
@@ -112,9 +120,9 @@ private int pai[] = new int[100];
 			}
 			vertices_mst++;
 		}
-		
-		System.out.println("\n O peso � " + peso_mst);
-    	
+
+		System.out.println("\n O peso � " + peso_mst);
+
     	return null;
     }
 

@@ -1,4 +1,4 @@
-
+package main.view;
 
 /**
  * Created by viniagostini on 28/04/2018.
@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
     	System.out.println("Hello Driele!!");
         IO io = new IO();
-        System.out.println(io.read("C:\\Users\\Igor Matheus\\Desktop\\ATG\\entradas.txt"));
-        
+        System.out.println(io.read("testGraph.txt"));
     }
 }
