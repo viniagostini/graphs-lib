@@ -1,9 +1,11 @@
+package controller;
+
 import model.Grafo;
 import model.Representacao;
 import model.Vertice;
 
 /**
- * Controller responsável por gerenciar as operações de Grafos.
+ * controller.Controller responsável por gerenciar as operações de Grafos.
  */
 public class Controller {
 

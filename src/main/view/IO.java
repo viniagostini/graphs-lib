@@ -1,3 +1,5 @@
+package view;
+
 import model.Aresta;
 import model.Grafo;
 import model.Vertice;
