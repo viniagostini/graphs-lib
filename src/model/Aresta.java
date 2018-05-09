@@ -9,9 +9,9 @@ public class Aresta {
 
     private Vertice verticeInicial;
     private Vertice verticeFinal;
-    private float peso;
+    private double peso;
 
-    public Aresta(Vertice verticeInicial, Vertice verticeFinal, float peso) {
+    public Aresta(Vertice verticeInicial, Vertice verticeFinal, double peso) {
         this.verticeInicial = verticeInicial;
         this.verticeFinal = verticeFinal;
         this.peso = peso;
@@ -33,11 +33,11 @@ public class Aresta {
         this.verticeFinal = verticeFinal;
     }
 
-    public float getPeso() {
+    public double getPeso() {
         return peso;
     }
 
-    public void setPeso(float peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 
