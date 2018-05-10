@@ -32,6 +32,13 @@ public class Controller {
         return graph.getEdgeNumber();
     }
 
+    /**
+     * Retorna o resultado do cálculo do grau médio do {@link Grafo} passado como parâmetro
+     *
+     * @param graph
+     *
+     * @return número do grau médio do Grafo
+     */
     public float getMeanEdge (Grafo graph) {
         return graph.getMeanEdge();
     }

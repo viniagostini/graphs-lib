@@ -49,6 +49,9 @@ private int pai[] = new int[100];
         return arestas.size();
     }
 
+    /**
+     * Retorna o resultado do cálculo do Grau Médio do Grafo.
+     */
     public float getMeanEdge () {
         return (2 * arestas.size()) / vertices.size();
     }
