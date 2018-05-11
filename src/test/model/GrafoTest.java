@@ -109,6 +109,23 @@ class GrafoTest {
 
     @Test
     void BFS() {
+
+        Set<Vertice> vertices = new HashSet<Vertice>();
+        Set<Aresta> arestas = new HashSet<Aresta>();
+
+        Vertice v1 = new Vertice(1);
+
+        vertices.add(v1);
+        assertEquals("1 - 0 -\n", grafo.BFS(v1), "A busca deve retornar apenas o vertice raiz");
+
+        Vertice v2 = new Vertice(2);
+        vertices.add(v2);
+
+        Aresta a1 = new Aresta(v1,v2,1);
+        arestas.add(a1);
+
+        //assertEquals("1 - 0 -\n2 - 1 1\n", grafo.BFS(v1), "A busca deve retornar o vertice raiz e seu filho");
+
     }
 
     @Test
