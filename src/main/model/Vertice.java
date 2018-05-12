@@ -2,17 +2,27 @@ package main.model;
 
 import java.util.Objects;
 
+import static java.awt.Color.BLACK;
+import static java.awt.Color.WHITE;
+import static javafx.scene.paint.Color.GREY;
+
 /**
  * Classe que representa a entidade Vértice.
  */
 public class Vertice {
 
+    private enum Cor {
+        BRANCO, CINZA, PRETO;
+    }
+
     private Integer id;
     private Boolean visitado;
+    private Cor cor;
 
     public Vertice(int id) {
         this .id = id;
         this.visitado = false;
+        this.cor = Cor.BRANCO;
     }
 
     public Integer getId() {
@@ -29,6 +39,14 @@ public class Vertice {
 
     public void setVisitado(Boolean visitado) {
         this.visitado = visitado;
+    }
+
+    public Cor getCor() {
+        return cor;
+    }
+
+    public void setCor(Cor cor) {
+        this.cor = cor;
     }
 
     @Override
