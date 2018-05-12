@@ -7,12 +7,18 @@ import java.util.Objects;
  */
 public class Vertice {
 
+    private enum Cor {
+        BRANCO, CINZA, PRETO;
+    }
+
     private Integer id;
     private Boolean visitado;
+    private Cor cor;
 
     public Vertice(int id) {
         this .id = id;
         this.visitado = false;
+        this.cor = Cor.BRANCO;
     }
 
     public Integer getId() {
@@ -29,6 +35,14 @@ public class Vertice {
 
     public void setVisitado(Boolean visitado) {
         this.visitado = visitado;
+    }
+
+    public Cor getCor() {
+        return cor;
+    }
+
+    public void setCor(Cor cor) {
+        this.cor = cor;
     }
 
     @Override
