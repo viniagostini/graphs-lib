@@ -2,10 +2,6 @@ package main.model;
 
 import java.util.Objects;
 
-import static java.awt.Color.BLACK;
-import static java.awt.Color.WHITE;
-import static javafx.scene.paint.Color.GREY;
-
 /**
  * Classe que representa a entidade Vértice.
  */
