@@ -47,6 +47,12 @@ public class Controller {
         return graph.graphRepresentation(type);
     }
 
+    /**
+     * Realiza a busca em largura do {@link Grafo} e de um {@link Vertice} raiz passados como parâmetro
+     * @param graph
+     * @param v
+     * @return tabela com vertices do Grafo visitados, com seu respectivo nível e pai
+     */
     public String BFS (Grafo graph, Vertice v) {
         return graph.BFS(v);
     }

@@ -66,6 +66,9 @@ private int pai[] = new int[100];
         }
     }
 
+    /**
+     * Realiza busca em profundidade no grafo a partir do Vértice raiz passado como parâmetro.
+     */
     public String BFS (Vertice v) {
 
         StringBuilder saida = new StringBuilder();
