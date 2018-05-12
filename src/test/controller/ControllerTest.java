@@ -111,6 +111,50 @@ class ControllerTest {
 
     @Test
     void BFSTest() {
+
+        Grafo grafo = new Grafo();
+
+        Set<Vertice> vertices = new HashSet<>();
+        Set<Aresta> arestas = new HashSet<>();
+
+        Vertice v1 = new Vertice(1);
+
+        vertices.add(v1);
+
+        grafo.setVertices(vertices);
+
+        assertEquals("1 - 0 -\n", controller.BFS(grafo, v1), "A busca deve retornar apenas o vertice raiz");
+
+        Vertice v2 = new Vertice(2);
+        vertices.add(v2);
+
+        Aresta a1 = new Aresta(v1,v2,1);
+        arestas.add(a1);
+        Aresta a2 = new Aresta(v2,v1, 1);
+        arestas.add(a2);
+
+        grafo.setVertices(vertices);
+        grafo.setArestas(arestas);
+
+        assertEquals("1 - 0 -\n2 - 1 1\n", controller.BFS(grafo, v1), "A busca deve retornar o vertice raiz e seu filho");
+
+        Vertice v3 = new Vertice(3);
+        Vertice v4 = new Vertice(4);
+        Vertice v5 = new Vertice(5);
+
+        Aresta a3 = new Aresta(v1,v5,1);
+        Aresta a4 = new Aresta(v2,v5,1);
+        Aresta a5 = new Aresta(v3,v5,1);
+        Aresta a6 = new Aresta(v4,v5,1);
+
+        vertices.add(v3); vertices.add(v4); vertices.add(v5);
+        arestas.add(a3); arestas.add(a4); arestas.add(a5); arestas.add(a6);
+
+        grafo.setVertices(vertices);
+        grafo.setArestas(arestas);
+
+        assertEquals("1 - 0 - \n2 - 1 1\n3 - 2 5\n4 - 2 5\n5 - 1 1\n" , controller.BFS(grafo, v1),
+                "A busca retorna o vertice raiz e todos os vértices do grafo em largura");
     }
 
     @Test

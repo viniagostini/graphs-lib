@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Queue;
+import java.util.LinkedList;
 
 /**
  * Classe que representa a entridade Grafo.
@@ -64,8 +66,63 @@ private int pai[] = new int[100];
         }
     }
 
+    /**
+     * Realiza busca em profundidade no grafo a partir do Vértice raiz passado como parâmetro.
+     */
     public String BFS (Vertice v) {
+
+        StringBuilder saida = new StringBuilder();
+        Queue<Vertice> fila = new LinkedList<>();
+        int nivel = 0;
+
+        saida.append(v.getId()).append(" - ").append(nivel).append(" -").append("\n");
+        v.setVisitado(true);
+        fila.add(v);
+
+        while(!fila.isEmpty()) {
+
+            boolean nivelVisitado = false;
+            Vertice pai = fila.remove();
+            Vertice filho = null;
+
+            while ((filho = getFilhoNVisitado(pai)) != null) {
+
+                if(!nivelVisitado){
+                    nivelVisitado = true;
+                    nivel++;
+                }
+
+                filho.setVisitado(true);
+                fila.add(filho);
+
+                saida.append(filho.getId()).append(" - ").append(nivel).append(" ").append(pai.getId()).append("\n");
+            }
+        }
+
+        limpaVertices();
+        return saida.toString();
+    }
+
+    private Vertice getFilhoNVisitado(Vertice pai) {
+
+        for (Aresta aresta : arestas) {
+            Vertice v1 = aresta.getVerticeInicial();
+            Vertice v2 = aresta.getVerticeFinal();
+
+            if (v1.equals(pai) && !(v2.getVisitado())) {
+                return v2;
+            } else if (v2.equals(pai) && !(v1.getVisitado())) {
+                return v1;
+            }
+        }
         return null;
+    }
+
+    private void limpaVertices(){
+
+        for (Vertice vertice : vertices) {
+            vertice.setVisitado(false);
+        }
     }
 
     public String DFS (Vertice v) {
