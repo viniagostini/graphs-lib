@@ -69,7 +69,7 @@ private int pai[] = new int[100];
     public String BFS (Vertice v) {
 
         StringBuilder saida = new StringBuilder();
-        Queue<Vertice> fila = new LinkedList<Vertice>();
+        Queue<Vertice> fila = new LinkedList<>();
         int nivel = 0;
 
         saida.append(v.getId()).append(" - ").append(nivel).append(" -").append("\n");
@@ -77,22 +77,32 @@ private int pai[] = new int[100];
         fila.add(v);
 
         while(!fila.isEmpty()) {
-            nivel++;
+
+            boolean nivelVisitado = false;
             Vertice pai = fila.remove();
             Vertice filho = null;
+
             while ((filho = getFilhoNVisitado(pai)) != null) {
+
+                if(!nivelVisitado){
+                    nivelVisitado = true;
+                    nivel++;
+                }
+
                 filho.setVisitado(true);
                 fila.add(filho);
+
                 saida.append(filho.getId()).append(" - ").append(nivel).append(" ").append(pai.getId()).append("\n");
             }
         }
+
         limpaVertices();
         return saida.toString();
     }
 
     private Vertice getFilhoNVisitado(Vertice pai) {
 
-        for (Aresta aresta: arestas) {
+        for (Aresta aresta : arestas) {
             Vertice v1 = aresta.getVerticeInicial();
             Vertice v2 = aresta.getVerticeFinal();
 
@@ -106,6 +116,7 @@ private int pai[] = new int[100];
     }
 
     private void limpaVertices(){
+
         for (Vertice vertice : vertices) {
             vertice.setVisitado(false);
         }
