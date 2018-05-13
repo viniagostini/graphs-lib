@@ -1,14 +1,7 @@
 package main.model;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Classe que representa a entridade Grafo.
@@ -18,7 +11,7 @@ public class Grafo {
     private Set<Aresta> arestas;
     private Set<Vertice> vertices;
 
-private int pai[] = new int[100];
+    private int pai[] = new int[100];
 
 	public int find(int x) {
 		if(pai[x] == x) {
@@ -122,11 +115,49 @@ private int pai[] = new int[100];
 
         for (Vertice vertice : vertices) {
             vertice.setVisitado(false);
+            vertice.setCor(Vertice.Cor.BRANCO);
         }
     }
 
     public String DFS (Vertice v) {
-        return null;
+        String visita = visitaDFS(v, 0);
+        limpaVertices();
+        return visita;
+    }
+
+    private String visitaDFS(Vertice v, int nivel) {
+        String saida = "";
+
+        if (nivel == 0) {
+            saida += v.getId() + " - 0 -" + System.lineSeparator();
+        }
+
+        v.setCor(Vertice.Cor.PRETO);
+
+        LinkedList<Vertice> adjs = new LinkedList<>();
+
+        for (Aresta aresta : this.arestas) {
+            Vertice vInicial = aresta.getVerticeInicial();
+            Vertice vFinal = aresta.getVerticeFinal();
+
+            if (vInicial.equals(v) && vFinal.getCor() == Vertice.Cor.BRANCO) {
+                vFinal.setCor(Vertice.Cor.CINZA);
+                adjs.add(vFinal);
+            } else if (vFinal.equals(v) && vInicial.getCor() == Vertice.Cor.BRANCO) {
+                vFinal.setCor(Vertice.Cor.CINZA);
+                adjs.add(aresta.getVerticeInicial());
+            }
+        }
+
+        Iterator<Vertice> iter = adjs.iterator();
+
+        while (iter.hasNext()) {
+            Vertice vertice = iter.next();
+            saida += vertice.getId() + " - " + v.getId() + " " + (nivel + 1) + System.lineSeparator();
+            saida += visitaDFS(vertice, nivel + 1);
+        }
+
+        return saida;
     }
 
     public String SCC () {

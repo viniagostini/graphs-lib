@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class Vertice {
 
-    private enum Cor {
+    public enum Cor {
         BRANCO, CINZA, PRETO;
     }
 
