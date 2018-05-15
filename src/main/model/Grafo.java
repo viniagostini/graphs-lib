@@ -30,6 +30,17 @@ public class Grafo {
         vertices = new HashSet<>();
     }
 
+
+    public Vertice getVertice(int id) {
+	    for (Vertice vertice: this.vertices) {
+	        if (vertice.getId() == id) {
+	            return vertice;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Retorna o número de vértices do Grafo.
      */
@@ -129,6 +140,7 @@ public class Grafo {
         String saida = "";
 
         if (nivel == 0) {
+            v = getVertice(v.getId());
             saida += v.getId() + " - 0 -" + System.lineSeparator();
         }
 
