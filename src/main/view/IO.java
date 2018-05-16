@@ -81,6 +81,8 @@ public class IO {
         });
 
         grafo.setArestas(arestas);
+        grafo.setPonderado(isWeighted);
+
         grafo.mst();
         return grafo;
     }
