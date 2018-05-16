@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Queue;
@@ -19,7 +18,9 @@ public class Grafo {
 	private Set<Vertice> vertices;
 	private boolean ponderado;
 
-	private int pai[] = new int[100];
+
+    private int pai[] = new int[100];
+
 
 	public int find(int x) {
 		if (pai[x] == x) {
@@ -300,10 +301,6 @@ public class Grafo {
 		return vertices;
 	}
 
-	public void setVertices(Set<Vertice> vertices) {
-		this.vertices = vertices;
-	}
-
 	public boolean isPonderado() {
 		return ponderado;
 	}
@@ -312,4 +309,22 @@ public class Grafo {
 		this.ponderado = ponderado;
 	}
 
+
+    public void setVertices(Set<Vertice> vertices) {
+        this.vertices = vertices;
+    }
+
+    public Vertice getVerticeById (int id) {
+        return this.vertices.stream()
+                .filter(vertice -> vertice.getId() == id)
+                .findFirst().get();
+    }
+
+    @Override
+    public String toString() {
+        return "Grafo : {" +
+                "arestas: " + arestas +
+                ", vertices: " + vertices +
+                '}';
+    }
 }

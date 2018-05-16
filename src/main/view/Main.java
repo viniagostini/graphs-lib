@@ -6,8 +6,7 @@ package main.view;
 public class Main {
 
     public static void main(String[] args) {
-    	System.out.println("Hello Driele!!");
-        IO io = new IO();
-        System.out.println(io.read("testGraph.txt"));
+    	IO io = new IO();
+        System.out.println(io.readWeightedGraph("testWeightedGraph.txt"));
     }
 }

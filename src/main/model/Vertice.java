@@ -59,9 +59,20 @@ public class Vertice {
 
         return false;
     }
+
     
     @Override
  	public String toString() {
  		return "[" + id + "]";
  	}
+   
+    /*@Override
+    public String toString() {
+        return "Vertice: {" +
+                "id:" + id +
+                ", visitado: " + visitado +
+                ", cor: " + cor +
+                '}';
+    }*/
+
 }
