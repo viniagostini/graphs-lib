@@ -56,4 +56,13 @@ public class Aresta {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Aresta: {" +
+                "verticeInicial:" + verticeInicial +
+                ", verticeFinal:" + verticeFinal +
+                ", peso=" + peso +
+                '}';
+    }
 }

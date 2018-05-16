@@ -202,7 +202,7 @@ class GrafoTest {
     }
 
     @Test
-    void SCC() {
+    void connected() {
     }
 
     @Test

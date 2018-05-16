@@ -6,6 +6,8 @@ import main.model.Vertice;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Classe responsável pela leitura de dados.
@@ -13,20 +15,22 @@ import java.util.*;
 public class IO {
 
     private final double DEFAULT_WEIGHT = 1;
+    private final int FIRST_LINE = 1;
 
     @FunctionalInterface
     private interface ProcessArgs {
-        void process(String[] args);
+        void process(String[] args, int line);
     }
 
     private void readArchive(String path, ProcessArgs processArgs) {
         File file = new File(path);
         try {
             Scanner input = new Scanner(new FileReader(file));
-            input.nextLine();
+            int line = FIRST_LINE;
             while (input.hasNext()) {
                 String[] arguments = input.nextLine().split(" ");
-                processArgs.process(arguments);
+                processArgs.process(arguments, line);
+                line++;
             }
             input.close();
         } catch (FileNotFoundException e) {
@@ -59,24 +63,41 @@ public class IO {
     private Grafo readGraph(String path, boolean isWeighted) {
         Grafo grafo = new Grafo();
         Set<Aresta> arestas = new HashSet<>();
-        Set<Vertice> vertices = new HashSet<>();
 
-        readArchive(path, (args) -> {
-            Vertice vInicial = new Vertice(Integer.parseInt(args[0]));
-            Vertice vFinal = new Vertice(Integer.parseInt(args[1]));
-            double weight = isWeighted ? Double.parseDouble(args[2]) : DEFAULT_WEIGHT;
-            Aresta aresta = new Aresta(vInicial, vFinal, weight);
+        readArchive(path, (args, line) -> {
+            if (line == FIRST_LINE) {
+                int nVertex = Integer.parseInt(args[0]);
+                Set<Vertice> vertices = generateVertexes(nVertex);
 
-            arestas.add(aresta);
-            vertices.add(vInicial);
-            vertices.add(vFinal);
-            System.out.println(Arrays.toString(args));
+                grafo.setVertices(vertices);
+            } else {
+                Vertice vInicial = grafo.getVerticeById(Integer.parseInt(args[0]));
+                Vertice vFinal = grafo.getVerticeById(Integer.parseInt(args[1]));
+                double weight = isWeighted ? Double.parseDouble(args[2]) : DEFAULT_WEIGHT;
+                Aresta aresta = new Aresta(vInicial, vFinal, weight);
+
+                arestas.add(aresta);
+            }
         });
 
         grafo.setArestas(arestas);
-        grafo.setVertices(vertices);
+        grafo.setPonderado(isWeighted);
+
         grafo.mst();
         return grafo;
     }
 
+    /**
+     * Gera um Set de {@link Vertice} com vértices com id´s de 1 ... nVertex
+     *
+     * @param nVertex número de vértices a serem gerados.
+     *
+     * @return o Set gerado.
+     */
+    private Set<Vertice> generateVertexes (int nVertex) {
+        return IntStream
+                .range(0, nVertex)
+                .mapToObj(i -> new Vertice(i+1))
+                .collect(Collectors.toSet());
+    }
 }
