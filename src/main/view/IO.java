@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 public class IO {
 
     private final double DEFAULT_WEIGHT = 1;
-    private final double FIRST_LINE = 1;
+    private final int FIRST_LINE = 1;
 
     @FunctionalInterface
     private interface ProcessArgs {
@@ -26,7 +26,7 @@ public class IO {
         File file = new File(path);
         try {
             Scanner input = new Scanner(new FileReader(file));
-            int line = 1;
+            int line = FIRST_LINE;
             while (input.hasNext()) {
                 String[] arguments = input.nextLine().split(" ");
                 processArgs.process(arguments, line);
