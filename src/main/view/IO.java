@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 public class IO {
 
     private final double DEFAULT_WEIGHT = 1;
-    private final double FIRT_LINE = 1;
+    private final double FIRST_LINE = 1;
 
     @FunctionalInterface
     private interface ProcessArgs {
@@ -65,7 +65,7 @@ public class IO {
         Set<Aresta> arestas = new HashSet<>();
 
         readArchive(path, (args, line) -> {
-            if (line == FIRT_LINE) {
+            if (line == FIRST_LINE) {
                 int nVertex = Integer.parseInt(args[0]);
                 Set<Vertice> vertices = generateVertexes(nVertex);
 
