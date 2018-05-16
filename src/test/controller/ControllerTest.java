@@ -201,6 +201,7 @@ class ControllerTest {
         grafo.setVertices(vertices);
         grafo.setArestas(arestas);
 
+
        // assertEquals("1 - 0 - \n2 - 1 1\n3 - 2 5\n4 - 2 5\n5 - 1 1\n" , controller.BFS(grafo, v1),
        //         "A busca retorna o vertice raiz e todos os vértices do grafo em largura");
     }

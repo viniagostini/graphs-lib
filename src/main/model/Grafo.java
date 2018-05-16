@@ -1,13 +1,7 @@
 package main.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.*;
+
 
 /**
  * Classe que representa a entridade Grafo.
@@ -20,7 +14,6 @@ public class Grafo {
 
 
     private int pai[] = new int[100];
-
 
 	public int find(int x) {
 		if (pai[x] == x) {
@@ -40,12 +33,23 @@ public class Grafo {
 		vertices = new HashSet<>();
 	}
 
-	/**
-	 * Retorna o número de vértices do Grafo.
-	 */
-	public int getVertexNumber() {
-		return vertices.size();
-	}
+  public Vertice getVertice(int id) {
+	    
+      for (Vertice vertice: this.vertices) {
+	        if (vertice.getId() == id) {
+	            return vertice;
+          }
+      }
+
+    return null;
+  }
+
+    /**
+     * Retorna o número de vértices do Grafo.
+     */
+  public int getVertexNumber () {
+        return vertices.size();
+  }
 
 	/**
 	 * Retorna o número de arestas do Grafo.
@@ -123,15 +127,53 @@ public class Grafo {
 	}
 
 	private void limpaVertices() {
+    
+    for (Vertice vertice : vertices) {
+      vertice.setVisitado(false);
+      vertice.setCor(Vertice.Cor.BRANCO);
+    }
+  }
 
-		for (Vertice vertice : vertices) {
-			vertice.setVisitado(false);
-		}
-	}
+  public String DFS (Vertice v) {
+        String visita = visitaDFS(v, 0);
+        limpaVertices();
+        return visita;
+  }
+  
+  private String visitaDFS(Vertice v, int nivel) {
+        
+    String saida = "";
+    
+    if (nivel == 0) {
+      v = getVertice(v.getId());   
+      saida += v.getId() + " - 0 -" + System.lineSeparator();  
+    }
+    
+    v.setCor(Vertice.Cor.PRETO);
+    LinkedList<Vertice> adjs = new LinkedList<>();
+    
+    for (Aresta aresta : this.arestas) {    
+      Vertice vInicial = aresta.getVerticeInicial();       
+      Vertice vFinal = aresta.getVerticeFinal();
+      
+      if (vInicial.equals(v) && vFinal.getCor() == Vertice.Cor.BRANCO) {      
+        vFinal.setCor(Vertice.Cor.CINZA);   
+        adjs.add(vFinal);   
+      } else if (vFinal.equals(v) && vInicial.getCor() == Vertice.Cor.BRANCO) {
+        vFinal.setCor(Vertice.Cor.CINZA);        
+        adjs.add(aresta.getVerticeInicial());
+      }
+    }
 
-	public String DFS(Vertice v) {
-		return null;
-	}
+    Iterator<Vertice> iter = adjs.iterator();
+   
+    while (iter.hasNext()) {
+      Vertice vertice = iter.next(); 
+      saida += vertice.getId() + " - " + v.getId() + " " + (nivel + 1) + System.lineSeparator();
+      saida += visitaDFS(vertice, nivel + 1); 
+    }
+    return saida;
+  }
 
 	/**
 	 * Verifica se um grafo é conexo, ou seja, existe um caminho entre todos os vértices
