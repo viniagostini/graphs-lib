@@ -2,7 +2,6 @@ package main.model;
 
 import java.util.*;
 
-
 /**
  * Classe que representa a entridade Grafo.
  */
@@ -13,21 +12,19 @@ public class Grafo {
 	private boolean ponderado;
 	private double matrix[][];
 
+	private int pai[] = new int[100];
 
-    private int pai[] = new int[100];
-
-	
 	public Grafo() {
 		arestas = new HashSet<>();
 		vertices = new HashSet<>();
 	}
 
-    /**
-     * Retorna o número de vértices do Grafo.
-     */
-  public int getVertexNumber () {
-        return vertices.size();
-  }
+	/**
+	 * Retorna o número de vértices do Grafo.
+	 */
+	public int getVertexNumber() {
+		return vertices.size();
+	}
 
 	/**
 	 * Retorna o número de arestas do Grafo.
@@ -105,104 +102,107 @@ public class Grafo {
 	}
 
 	private void limpaVertices() {
-    
-    for (Vertice vertice : vertices) {
-      vertice.setVisitado(false);
-      vertice.setCor(Vertice.Cor.BRANCO);
-    }
-  }
+
+		for (Vertice vertice : vertices) {
+			vertice.setVisitado(false);
+			vertice.setCor(Vertice.Cor.BRANCO);
+		}
+	}
 
 	/**
-	 * Caminha em profundidade pelo grafo e constroi uma {@link String} que repesenta o resultado
-	 * do caminho.
+	 * Caminha em profundidade pelo grafo e constroi uma {@link String} que
+	 * repesenta o resultado do caminho.
 	 *
 	 * @param v Verticide inicial do {@link Grafo}
 	 * @return A string construída
 	 */
-  public String DFS (Vertice v) {
-        String visita = visitaDFS(v, 0);
-        limpaVertices();
-        return visita;
-  }
+	public String DFS(Vertice v) {
+		String visita = visitaDFS(v, 0);
+		limpaVertices();
+		return visita;
+	}
 
 	/**
 	 * Visita os vertices do {@link Grafo} e constrói uma {@link String} que
 	 * representa o resultado do caminho em profundidade no {@link Grafo}
 	 *
-	 * @param v Vertice a ser visitado
-	 * @param nivel Nível em relação ao vertice inicial em que o vértice à ser visitado está
+	 * @param v     Vertice a ser visitado
+	 * @param nivel Nível em relação ao vertice inicial em que o vértice à ser
+	 *              visitado está
 	 * @return A String contruída
 	 */
-  private String visitaDFS(Vertice v, int nivel) {
-        
-    String saida = "";
-    
-    if (nivel == 0) {
-      v = getVerticeById(v.getId());
-      saida += v.getId() + " - 0 -" + System.lineSeparator();  
-    }
-    
-    v.setCor(Vertice.Cor.PRETO);
-    LinkedList<Vertice> adjs = new LinkedList<>();
-    
-    for (Aresta aresta : this.arestas) {    
-      Vertice vInicial = aresta.getVerticeInicial();       
-      Vertice vFinal = aresta.getVerticeFinal();
-      
-      if (vInicial.equals(v) && vFinal.getCor() == Vertice.Cor.BRANCO) {      
-        vFinal.setCor(Vertice.Cor.CINZA);
-        adjs.add(vFinal);
-      } else if (vFinal.equals(v) && vInicial.getCor() == Vertice.Cor.BRANCO) {
-        vFinal.setCor(Vertice.Cor.CINZA);        
-        adjs.add(aresta.getVerticeInicial());
-      }
-    }
+	private String visitaDFS(Vertice v, int nivel) {
 
-    Iterator<Vertice> iter = adjs.iterator();
-   
-    while (iter.hasNext()) {
-      Vertice vertice = iter.next(); 
-      saida += vertice.getId() + " - " + v.getId() + " " + (nivel + 1) + System.lineSeparator();
-      saida += visitaDFS(vertice, nivel + 1); 
-    }
-    return saida;
-  }
+		String saida = "";
+
+		if (nivel == 0) {
+			v = getVerticeById(v.getId());
+			saida += v.getId() + " - 0 -" + System.lineSeparator();
+		}
+
+		v.setCor(Vertice.Cor.PRETO);
+		LinkedList<Vertice> adjs = new LinkedList<>();
+
+		for (Aresta aresta : this.arestas) {
+			Vertice vInicial = aresta.getVerticeInicial();
+			Vertice vFinal = aresta.getVerticeFinal();
+
+			if (vInicial.equals(v) && vFinal.getCor() == Vertice.Cor.BRANCO) {
+				vFinal.setCor(Vertice.Cor.CINZA);
+				adjs.add(vFinal);
+			} else if (vFinal.equals(v) && vInicial.getCor() == Vertice.Cor.BRANCO) {
+				vFinal.setCor(Vertice.Cor.CINZA);
+				adjs.add(aresta.getVerticeInicial());
+			}
+		}
+
+		Iterator<Vertice> iter = adjs.iterator();
+
+		while (iter.hasNext()) {
+			Vertice vertice = iter.next();
+			saida += vertice.getId() + " - " + v.getId() + " " + (nivel + 1) + System.lineSeparator();
+			saida += visitaDFS(vertice, nivel + 1);
+		}
+		return saida;
+	}
 
 	/**
-	 * Verifica se um grafo é conexo, ou seja, existe um caminho entre todos os vértices
+	 * Verifica se um grafo é conexo, ou seja, existe um caminho entre todos os
+	 * vértices
+	 * 
 	 * @return retorna true se o grafo for conexo e false se não for conexo
 	 */
-	public boolean connected () {
-        boolean connected = true;
-        Queue<Vertice> fila = new LinkedList<>();
-        if(!this.vertices.isEmpty()){
-        	Vertice v = null;
-        	for(Vertice vertice: this.vertices) {
-    			v = vertice;
-    			break;
-        	}
-        	v.setVisitado(true);
-        	fila.add(v);
-        	while(!fila.isEmpty()) {
-	    		Vertice pai = fila.remove();
-	    		Vertice filho = null;
-	    		while ((filho = getFilhoNVisitado(pai)) != null) {
-	    			filho.setVisitado(true);
-	    			fila.add(filho);
-	    		}
-        	}
+	public boolean connected() {
+		boolean connected = true;
+		Queue<Vertice> fila = new LinkedList<>();
+		if (!this.vertices.isEmpty()) {
+			Vertice v = null;
+			for (Vertice vertice : this.vertices) {
+				v = vertice;
+				break;
+			}
+			v.setVisitado(true);
+			fila.add(v);
+			while (!fila.isEmpty()) {
+				Vertice pai = fila.remove();
+				Vertice filho = null;
+				while ((filho = getFilhoNVisitado(pai)) != null) {
+					filho.setVisitado(true);
+					fila.add(filho);
+				}
+			}
 
-        	for (Vertice vertice : vertices) {
-        		if(!vertice.getVisitado()) {
-        			connected = false;
-        		}
-        	}
-        }else {
-        	connected = false;
-        }
-        return connected;
-    }
-	
+			for (Vertice vertice : vertices) {
+				if (!vertice.getVisitado()) {
+					connected = false;
+				}
+			}
+		} else {
+			connected = false;
+		}
+		return connected;
+	}
+
 	/**
 	 * Monta uma matriz de adjancencia e respectivos pesos entre vertices
 	 * 
@@ -226,14 +226,12 @@ public class Grafo {
 
 		return matrix;
 	}
-	
+
 	/**
 	 * Calcula o menor caminho entre dois vertices
 	 * 
-	 * @param v1:
-	 *            vertice Inicial
-	 * @param v2:
-	 *            vertice final
+	 * @param v1: vertice Inicial
+	 * @param v2: vertice final
 	 * @return retorna o peso do menor caminho entre dois vertices
 	 */
 	public String shortestPath(int v1, int v2) {
@@ -294,7 +292,7 @@ public class Grafo {
 		int fy = find(id_v2);
 		pai[fx] = fy;
 	}
-	
+
 	public String mst() {
 		String result = "";
 		double peso_mst = 0;
@@ -330,13 +328,13 @@ public class Grafo {
 			if (this.find(verticeInicial) != this.find(verticeFinal)) {
 				this.unite(verticeInicial, verticeFinal);
 				peso_mst += peso;
-				result += "Vertice Pai: " + verticeInicial + " Vertice Filho: " + verticeFinal +  " Peso Aresta: " + peso + "\n";
+				result += "Vertice Pai: " + verticeInicial + " Vertice Filho: " + verticeFinal + " Peso Aresta: " + peso
+						+ "\n";
 			}
 			vertices_mst++;
 		}
 		return result;
 	}
-
 
 	/**
 	 * Retorna uma representação do grafo em matriz de adjacências
@@ -425,22 +423,16 @@ public class Grafo {
 		this.ponderado = ponderado;
 	}
 
+	public void setVertices(Set<Vertice> vertices) {
+		this.vertices = vertices;
+	}
 
-    public void setVertices(Set<Vertice> vertices) {
-        this.vertices = vertices;
-    }
+	public Vertice getVerticeById(int id) {
+		return this.vertices.stream().filter(vertice -> vertice.getId() == id).findFirst().get();
+	}
 
-    public Vertice getVerticeById (int id) {
-        return this.vertices.stream()
-                .filter(vertice -> vertice.getId() == id)
-                .findFirst().get();
-    }
-
-    @Override
-    public String toString() {
-        return "Grafo : {" +
-                "arestas: " + arestas +
-                ", vertices: " + vertices +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Grafo : {" + "arestas: " + arestas + ", vertices: " + vertices + '}';
+	}
 }
