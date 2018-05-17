@@ -82,8 +82,6 @@ public class IO {
 
         grafo.setArestas(arestas);
         grafo.setPonderado(isWeighted);
-        System.out.println(grafo.shortestPath(1, 3));
-        System.out.println(grafo.mst());
         return grafo;
     }
 
