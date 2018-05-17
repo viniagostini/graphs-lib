@@ -123,12 +123,27 @@ public class Grafo {
     }
   }
 
+	/**
+	 * Caminha em profundidade pelo grafo e constroi uma {@link String} que repesenta o resultado
+	 * do caminho.
+	 *
+	 * @param v Verticide inicial do {@link Grafo}
+	 * @return A string construída
+	 */
   public String DFS (Vertice v) {
         String visita = visitaDFS(v, 0);
         limpaVertices();
         return visita;
   }
-  
+
+	/**
+	 * Visita os vertices do {@link Grafo} e constrói uma {@link String} que
+	 * representa o resultado do caminho em profundidade no {@link Grafo}
+	 *
+	 * @param v Vertice a ser visitado
+	 * @param nivel Nível em relação ao vertice inicial em que o vértice à ser visitado está
+	 * @return A String contruída
+	 */
   private String visitaDFS(Vertice v, int nivel) {
         
     String saida = "";
@@ -146,8 +161,8 @@ public class Grafo {
       Vertice vFinal = aresta.getVerticeFinal();
       
       if (vInicial.equals(v) && vFinal.getCor() == Vertice.Cor.BRANCO) {      
-        vFinal.setCor(Vertice.Cor.CINZA);   
-        adjs.add(vFinal);   
+        vFinal.setCor(Vertice.Cor.CINZA);
+        adjs.add(vFinal);
       } else if (vFinal.equals(v) && vInicial.getCor() == Vertice.Cor.BRANCO) {
         vFinal.setCor(Vertice.Cor.CINZA);        
         adjs.add(aresta.getVerticeInicial());
