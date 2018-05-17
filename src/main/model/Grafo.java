@@ -275,7 +275,7 @@ public class Grafo {
 	}
 
 	/**
-	 * Encontra o pai de um nó do grafo, a ponto de encontrar ciclos
+	 * Encontra o pai de um nÃ³ do grafo, a ponto de encontrar ciclos
 	 * 
 	 * @return chamada recursiva para percorrer o grafo
 	 */
@@ -287,7 +287,7 @@ public class Grafo {
 	}
 
 	/**
-	 * Conecta dois nós de um grafo para gerar a arvore minima
+	 * Conecta dois nÃ³s de um grafo para gerar a arvore minima
 	 */
 	private void unite(int id_v1, int id_v2) {
 		int fx = find(id_v1);

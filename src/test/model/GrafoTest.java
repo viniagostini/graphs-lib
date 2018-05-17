@@ -244,12 +244,12 @@ class GrafoTest {
 
         String saida = grafo.mst();
         
-        String esperado = 	"Vertice Pai: 4 Vertice Filho: 6 Peso Aresta: -2.0\r\n" + 
-        					"Vertice Pai: 5 Vertice Filho: 7 Peso Aresta: 0.1\r\n" + 
-        					"Vertice Pai: 6 Vertice Filho: 5 Peso Aresta: 0.5\r\n" + 
-        					"Vertice Pai: 2 Vertice Filho: 6 Peso Aresta: 1.0\r\n" + 
-        					"Vertice Pai: 2 Vertice Filho: 3 Peso Aresta: 2.0\r\n" +
-        					"Vertice Pai: 2 Vertice Filho: 1 Peso Aresta: 6.0";
+        String esperado = 	"Vertice Pai: 4 Vertice Filho: 6 Peso Aresta: -2.0\n" +
+        					"Vertice Pai: 5 Vertice Filho: 7 Peso Aresta: 0.1\n" +
+        					"Vertice Pai: 6 Vertice Filho: 5 Peso Aresta: 0.5\n" +
+        					"Vertice Pai: 2 Vertice Filho: 6 Peso Aresta: 1.0\n" +
+        					"Vertice Pai: 2 Vertice Filho: 3 Peso Aresta: 2.0\n" +
+        					"Vertice Pai: 2 Vertice Filho: 1 Peso Aresta: 6.0\n";
         
     
         assertEquals(esperado, saida);
