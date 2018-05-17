@@ -211,6 +211,49 @@ class GrafoTest {
 
     @Test
     void mst() {
+    	Vertice v1 = new Vertice(1);
+        Vertice v2 = new Vertice(2);
+        Vertice v3 = new Vertice(3);
+        Vertice v4 = new Vertice(4);
+        Vertice v5 = new Vertice(5);
+        Vertice v6 = new Vertice(6);
+        Vertice v7 = new Vertice(7);
+
+        Aresta a1 = new Aresta(v4, v2, 5.0);
+        Aresta a2 = new Aresta(v2, v1, 6.0);
+        Aresta a3 = new Aresta(v2, v3, 2.0);
+        Aresta a4 = new Aresta(v4, v6, -2.0);
+        Aresta a5 = new Aresta(v6, v5, 0.5);
+        Aresta a6 = new Aresta(v6, v7, 0.5);
+        Aresta a7 = new Aresta(v2, v6, 1.0);
+        Aresta a8 = new Aresta(v5, v7, 0.1);
+
+        HashSet<Aresta> arestas = new HashSet<>();
+        arestas.add(a1); arestas.add(a2); arestas.add(a3);
+        arestas.add(a4); arestas.add(a5); arestas.add(a6);
+        arestas.add(a7);arestas.add(a8);
+
+        HashSet<Vertice> vertices = new HashSet<>();
+        vertices.add(v1); vertices.add(v2); vertices.add(v3);
+        vertices.add(v4); vertices.add(v5); vertices.add(v6);
+        vertices.add(v7);
+
+        Grafo grafo = new Grafo();
+        grafo.setArestas(arestas);
+        grafo.setVertices(vertices);
+
+        String saida = grafo.mst();
+        
+        String esperado = 	"Vertice Pai: 4 Vertice Filho: 6 Peso Aresta: -2.0\r\n" + 
+        					"Vertice Pai: 5 Vertice Filho: 7 Peso Aresta: 0.1\r\n" + 
+        					"Vertice Pai: 6 Vertice Filho: 5 Peso Aresta: 0.5\r\n" + 
+        					"Vertice Pai: 2 Vertice Filho: 6 Peso Aresta: 1.0\r\n" + 
+        					"Vertice Pai: 2 Vertice Filho: 3 Peso Aresta: 2.0\r\n" +
+        					"Vertice Pai: 2 Vertice Filho: 1 Peso Aresta: 6.0";
+        
+    
+        assertEquals(esperado, saida);
+    	
     }
 
     @Test

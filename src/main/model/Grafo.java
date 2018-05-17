@@ -263,12 +263,12 @@ public class Grafo {
 						next[i][j] = next[i][k];
 					}
 
-		int u = v1;
-		int v = v2;
-		result += u + "->" + v + "      " + u;
-		while (u != v) {
-			u = next[u - 1][v - 1];
-			result += " -> " + u;
+		int verticeInicial = v1;
+		int verticeFinal = v2;
+		result += verticeInicial + "->" + verticeFinal + "      " + verticeInicial;
+		while (verticeInicial != verticeFinal) {
+			verticeInicial = next[verticeInicial - 1][verticeFinal - 1];
+			result += " -> " + verticeInicial;
 		}
 
 		return result;
@@ -279,28 +279,28 @@ public class Grafo {
 	 * 
 	 * @return chamada recursiva para percorrer o grafo
 	 */
-	public int find(int x) {
-		if (pai[x] == x) {
-			return x;
+	private int find(int id_vertice) {
+		if (pai[id_vertice] == id_vertice) {
+			return id_vertice;
 		}
-		return find(pai[x]);
+		return find(pai[id_vertice]);
 	}
 
 	/**
 	 * Conecta dois nós de um grafo para gerar a arvore minima
 	 */
-	public void unite(int x, int y) {
-		int fx = find(x);
-		int fy = find(y);
+	private void unite(int id_v1, int id_v2) {
+		int fx = find(id_v1);
+		int fy = find(id_v2);
 		pai[fx] = fy;
 	}
-
+	
 	public String mst() {
 		String result = "";
 		double peso_mst = 0;
 		int vertices_mst = 0;
-		int a, b;
-		double w;
+		int verticeInicial, verticeFinal;
+		double peso;
 
 		for (int i = 0; i < pai.length; i++) {
 			pai[i] = i;
@@ -323,19 +323,17 @@ public class Grafo {
 			}
 		});
 		while ((vertices_mst < arrayArestas.size())) {
-			a = arrayArestas.get(vertices_mst).getVerticeInicial().getId();
-			b = arrayArestas.get(vertices_mst).getVerticeFinal().getId();
-			w = arrayArestas.get(vertices_mst).getPeso();
+			verticeInicial = arrayArestas.get(vertices_mst).getVerticeInicial().getId();
+			verticeFinal = arrayArestas.get(vertices_mst).getVerticeFinal().getId();
+			peso = arrayArestas.get(vertices_mst).getPeso();
 
-			if (this.find(a) != this.find(b)) {
-				this.unite(a, b);
-				peso_mst += w;
-				result += "Vertice Pai: " + a + " Vertice Filho: " + b +  " Peso Aresta: " + w + "\n";
+			if (this.find(verticeInicial) != this.find(verticeFinal)) {
+				this.unite(verticeInicial, verticeFinal);
+				peso_mst += peso;
+				result += "Vertice Pai: " + verticeInicial + " Vertice Filho: " + verticeFinal +  " Peso Aresta: " + peso + "\n";
 			}
 			vertices_mst++;
 		}
-
-		System.out.println("\n O peso e: " + peso_mst);
 		return result;
 	}
 
