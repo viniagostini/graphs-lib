@@ -11,23 +11,12 @@ public class Grafo {
 	private Set<Aresta> arestas;
 	private Set<Vertice> vertices;
 	private boolean ponderado;
+	private double matrix[][];
 
 
     private int pai[] = new int[100];
 
-	public int find(int x) {
-		if (pai[x] == x) {
-			return x;
-		}
-		return find(pai[x]);
-	}
-
-	public void unite(int x, int y) {
-		int fx = find(x);
-		int fy = find(y);
-		pai[fx] = fy;
-	}
-
+	
 	public Grafo() {
 		arestas = new HashSet<>();
 		vertices = new HashSet<>();
@@ -213,15 +202,103 @@ public class Grafo {
         }
         return connected;
     }
+	
+	/**
+	 * Monta uma matriz de adjancencia e respectivos pesos entre vertices
+	 * 
+	 * @return retorna o peso do menor caminho entre dois vertices
+	 */
+	public double[][] matrix() {
+		this.matrix = new double[vertices.size()][vertices.size()];
 
-	public String shortestPath(Vertice v1, Vertice v2) {
-		return null;
+		for (Aresta aresta : arestas) {
+			matrix[aresta.getVerticeInicial().getId() - 1][aresta.getVerticeFinal().getId() - 1] = aresta.getPeso();
+			matrix[aresta.getVerticeFinal().getId() - 1][aresta.getVerticeInicial().getId() - 1] = aresta.getPeso();
+		}
+
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix.length; j++) {
+				if (matrix[i][j] == 0) {
+					matrix[i][j] = 99999;
+				}
+			}
+		}
+
+		return matrix;
+	}
+	
+	/**
+	 * Calcula o menor caminho entre dois vertices
+	 * 
+	 * @param v1:
+	 *            vertice Inicial
+	 * @param v2:
+	 *            vertice final
+	 * @return retorna o peso do menor caminho entre dois vertices
+	 */
+	public String shortestPath(int v1, int v2) {
+		String result = "";
+		double[][] matrix = this.matrix();
+		double[][] dist = new double[vertices.size()][vertices.size()];
+		for (double[] row : dist)
+			Arrays.fill(row, Double.POSITIVE_INFINITY);
+
+		for (int i = 0; i < vertices.size(); i++)
+			for (int j = 0; j < vertices.size(); j++)
+
+				dist[i][j] = this.matrix[i][j];
+
+		int[][] next = new int[vertices.size()][vertices.size()];
+		for (int i = 0; i < next.length; i++) {
+			for (int j = 0; j < next.length; j++)
+				if (i != j)
+					next[i][j] = j + 1;
+		}
+
+		for (int k = 0; k < vertices.size(); k++)
+			for (int i = 0; i < vertices.size(); i++)
+				for (int j = 0; j < vertices.size(); j++)
+					if (dist[i][k] + dist[k][j] < dist[i][j]) {
+						dist[i][j] = dist[i][k] + dist[k][j];
+						next[i][j] = next[i][k];
+					}
+
+		int u = v1;
+		int v = v2;
+		result += u + "->" + v + "      " + u;
+		while (u != v) {
+			u = next[u - 1][v - 1];
+			result += " -> " + u;
+		}
+
+		return result;
+	}
+
+	/**
+	 * Encontra o pai de um nó do grafo, a ponto de encontrar ciclos
+	 * 
+	 * @return chamada recursiva para percorrer o grafo
+	 */
+	public int find(int x) {
+		if (pai[x] == x) {
+			return x;
+		}
+		return find(pai[x]);
+	}
+
+	/**
+	 * Conecta dois nós de um grafo para gerar a arvore minima
+	 */
+	public void unite(int x, int y) {
+		int fx = find(x);
+		int fy = find(y);
+		pai[fx] = fy;
 	}
 
 	public String mst() {
+		String result = "";
 		double peso_mst = 0;
 		int vertices_mst = 0;
-		// int arestas_mst= 0;
 		int a, b;
 		double w;
 
@@ -234,21 +311,17 @@ public class Grafo {
 			arrayArestas.add(aresta);
 		}
 
-		ArrayList<Vertice> arrayVertices = new ArrayList<Vertice>();
-		for (Vertice vertice : vertices) {
-			arrayVertices.add(vertice);
-		}
-
 		Collections.sort(arrayArestas, new Comparator<Aresta>() {
 			@Override
 			public int compare(Aresta a1, Aresta a2) {
-				return (int) (a1.getPeso() - a2.getPeso());
+				if (a1.getPeso() < a2.getPeso())
+					return -1;
+				if (a1.getPeso() > a2.getPeso())
+					return 1;
+				return 0;
+
 			}
 		});
-
-		System.out.println(arrayArestas.size());
-		System.out.println(arrayVertices.size());
-
 		while ((vertices_mst < arrayArestas.size())) {
 			a = arrayArestas.get(vertices_mst).getVerticeInicial().getId();
 			b = arrayArestas.get(vertices_mst).getVerticeFinal().getId();
@@ -257,16 +330,15 @@ public class Grafo {
 			if (this.find(a) != this.find(b)) {
 				this.unite(a, b);
 				peso_mst += w;
-				System.out.println(a + " " + " " + b + " " + w);
-				// arestas_mst++;
+				result += "Vertice Pai: " + a + " Vertice Filho: " + b +  " Peso Aresta: " + w + "\n";
 			}
 			vertices_mst++;
 		}
 
-		System.out.println("\n O peso ï¿½ " + peso_mst);
-
-		return null;
+		System.out.println("\n O peso e: " + peso_mst);
+		return result;
 	}
+
 
 	/**
 	 * Retorna uma representaÃ§Ã£o do grafo em matriz de adjacÃªncias

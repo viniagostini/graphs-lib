@@ -71,7 +71,7 @@ public class Controller {
         return graph.connected();
     }
 
-    public String shortestPath(Grafo graph, Vertice v1, Vertice v2) {
+    public String shortestPath(Grafo graph, int v1, int v2) {
         return graph.shortestPath(v1, v2);
     }
 
