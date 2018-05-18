@@ -96,7 +96,7 @@ public class Grafo {
 	private Vertice getFilhoNVisitado(Vertice pai) {
 
 		Vertice filho = null;
-
+  
 		for (Aresta aresta : arestas) {
 			Vertice v1 = aresta.getVerticeInicial();
 			Vertice v2 = aresta.getVerticeFinal();
