@@ -43,6 +43,12 @@ public class Controller {
         return graph.getMeanEdge();
     }
 
+    /**
+     * Retorna uma representação do grafo, podendo ser em forma de matriz de adjacências ou lista de adjacências
+     * @param graph grafo a ser representado
+     * @param type tipo da representação
+     * @return Uma representação do grafo em string
+     */
     public String graphRepresentation (Grafo graph, Representacao type) {
         return graph.graphRepresentation(type);
     }
@@ -58,14 +64,14 @@ public class Controller {
     }
 
     public String DFS (Grafo graph, Vertice v) {
-        return graph.BFS(v);
+        return graph.DFS(v);
     }
 
-    public String SCC (Grafo graph) {
-        return graph.SCC();
+    public boolean connected (Grafo graph) {
+        return graph.connected();
     }
 
-    public String shortestPath(Grafo graph, Vertice v1, Vertice v2) {
+    public String shortestPath(Grafo graph, int v1, int v2) {
         return graph.shortestPath(v1, v2);
     }
 
