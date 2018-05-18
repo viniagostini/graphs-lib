@@ -49,18 +49,20 @@ public class Grafo {
 	}
 
 	/**
-	 * Realiza busca em profundidade no grafo a partir do Vértice raiz passado como
-	 * parâmetro.
+	 * Realiza busca em largura no grafo a partir do Vértice raiz
+	 * passado como parâmetro.
+	 * @param raiz do {@link Grafo}
+	 * @return string das visitas
 	 */
-	public String BFS(Vertice v) {
+	public String BFS(Vertice raiz) {
 
 		StringBuilder saida = new StringBuilder();
 		Queue<Vertice> fila = new LinkedList<>();
 		int nivel = 0;
 
-		saida.append(v.getId()).append(" - ").append(nivel).append(" -").append("\n");
-		v.setVisitado(true);
-		fila.add(v);
+		saida.append(raiz.getId()).append(" - ").append(nivel).append(" -").append("\n");
+		raiz.setVisitado(true);
+		fila.add(raiz);
 
 		while (!fila.isEmpty()) {
 
@@ -86,21 +88,33 @@ public class Grafo {
 		return saida.toString();
 	}
 
+	/**
+	 * Encontra o próximo filho não visitado de um vértice.
+	 * @param pai
+	 * @return filho
+	 */
 	private Vertice getFilhoNVisitado(Vertice pai) {
 
+		Vertice filho = null;
+  
 		for (Aresta aresta : arestas) {
 			Vertice v1 = aresta.getVerticeInicial();
 			Vertice v2 = aresta.getVerticeFinal();
 
 			if (v1.equals(pai) && !(v2.getVisitado())) {
-				return v2;
+				filho = v2;
+				return filho;
 			} else if (v2.equals(pai) && !(v1.getVisitado())) {
-				return v1;
+				filho = v1;
+				return filho;
 			}
 		}
-		return null;
+		return filho;
 	}
 
+	/**
+	 * Limpa as visitas e cores colocadas em todos os vértices
+	 */
 	private void limpaVertices() {
 
 		for (Vertice vertice : vertices) {

@@ -2,8 +2,8 @@ package test.model;
 
 import main.model.Aresta;
 import main.model.Grafo;
+import main.model.Representacao;
 import main.model.Vertice;
-import main.view.IO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -107,6 +107,51 @@ class GrafoTest {
 
     @Test
     void graphRepresentation() {
+
+        Set<Vertice> vertices = new HashSet<>();
+        Set<Aresta> arestas = new HashSet<>();
+
+        Vertice v1 = new Vertice(1);
+        Aresta a1 = new Aresta(v1,v1,1);
+        Vertice v2 = new Vertice(2);
+        vertices.add(v1);vertices.add(v2);
+        arestas.add(a1);
+        grafo.setPonderado(false);
+        grafo.setArestas(arestas);
+        grafo.setVertices(vertices);
+        String resultAL = grafo.graphRepresentation(Representacao.AL);
+        String resultAM = grafo.graphRepresentation(Representacao.AM);
+
+        assertEquals(("1- 1 " + System.getProperty("line.separator") + "2- " + System.getProperty("line.separator")), resultAL, "A representação deve estar correta");
+        assertEquals(("Matriz de adjacência" + System.getProperty("line.separator") +
+                "     [[1], [2]]" + System.getProperty("line.separator") +
+                "[1]    1    0" + System.getProperty("line.separator") +
+                "[2]    0    0"), resultAM, "A representação deve estar correta");
+
+
+        Vertice v3 = new Vertice(3);
+        Aresta a2 = new Aresta(v2,v1,0.3);
+        Aresta a3 = new Aresta(v2,v3,0.9);
+        Aresta a4 = new Aresta(v3,v2,0.7);
+        vertices.add(v3);
+        arestas.add(a2); arestas.add(a3); arestas.add(a4);
+        grafo.setPonderado(true);
+        grafo.setArestas(arestas);
+        grafo.setVertices(vertices);
+
+
+
+        String resultDirecionadoAL = grafo.graphRepresentation(Representacao.AL);
+        String resultDirecionadoAM = grafo.graphRepresentation(Representacao.AM);
+        assertEquals(("1- 1 " + System.getProperty("line.separator") +
+                "2- 1 3 " + System.getProperty("line.separator") +
+                "3- 2 " + System.getProperty("line.separator")), resultDirecionadoAL, "A representação deve estar correta");
+        assertEquals(("Matriz de adjacência" + System.getProperty("line.separator") +
+                "     [[1], [2], [3]]" + System.getProperty("line.separator") +
+                "[1]  1.0    0    0" + System.getProperty("line.separator") +
+                "[2]  0.3    0  0.9" + System.getProperty("line.separator") +
+                "[3]    0  0.7    0"), resultDirecionadoAM, "A representação deve estar correta");
+
     }
 
     @Test
@@ -234,7 +279,6 @@ class GrafoTest {
 	        vertices.add(v4); vertices.add(v5); vertices.add(v6);
 	        vertices.add(v7);
 	
-	        Grafo grafo = new Grafo();
 	        grafo.setArestas(arestas);
 	        grafo.setVertices(vertices);
 	
@@ -274,7 +318,6 @@ class GrafoTest {
         vertices.add(v4); vertices.add(v5); vertices.add(v6);
         vertices.add(v7);
 
-        Grafo grafo = new Grafo();
         grafo.setArestas(arestas);
         grafo.setVertices(vertices);
 

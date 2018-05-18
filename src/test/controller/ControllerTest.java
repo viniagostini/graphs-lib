@@ -125,10 +125,10 @@ class ControllerTest {
         String resultAL = grafo.graphRepresentation(Representacao.AL);
         String resultAM = grafo.graphRepresentation(Representacao.AM);
         
-        assertEquals(("1- 1 \n" + "2- \n"), resultAL, "A representação deve estar correta");
-        assertEquals(("Matriz de adjacência\n" + 
-        		"     [[1], [2]]\n" + 
-        		"[1]    1    0\n" + 
+        assertEquals(("1- 1 " + System.getProperty("line.separator") + "2- " + System.getProperty("line.separator")), resultAL, "A representação deve estar correta");
+        assertEquals(("Matriz de adjacência" + System.getProperty("line.separator") +
+        		"     [[1], [2]]" + System.getProperty("line.separator") +
+        		"[1]    1    0" + System.getProperty("line.separator") +
         		"[2]    0    0"), resultAM, "A representação deve estar correta");
 
         
@@ -146,13 +146,13 @@ class ControllerTest {
         
         String resultDirecionadoAL = grafo.graphRepresentation(Representacao.AL);
         String resultDirecionadoAM = grafo.graphRepresentation(Representacao.AM);
-        assertEquals(("1- 1 \n" + 
-        		"2- 1 3 \n" + 
-        		"3- 2 \n"), resultDirecionadoAL, "A representação deve estar correta");
-        assertEquals(("Matriz de adjacência\n" + 
-        		"     [[1], [2], [3]]\n" + 
-        		"[1]  1.0    0    0\n" + 
-        		"[2]  0.3    0  0.9\n" + 
+        assertEquals(("1- 1 " + System.getProperty("line.separator") +
+        		"2- 1 3 " + System.getProperty("line.separator") +
+        		"3- 2 " + System.getProperty("line.separator")), resultDirecionadoAL, "A representação deve estar correta");
+        assertEquals(("Matriz de adjacência" + System.getProperty("line.separator") +
+        		"     [[1], [2], [3]]" + System.getProperty("line.separator") +
+        		"[1]  1.0    0    0" + System.getProperty("line.separator") +
+        		"[2]  0.3    0  0.9" + System.getProperty("line.separator") +
         		"[3]    0  0.7    0"), resultDirecionadoAM, "A representação deve estar correta");
 
     }
