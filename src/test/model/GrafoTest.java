@@ -243,7 +243,6 @@ class GrafoTest {
 	        String esperado = 	"1->7      1 -> 2 -> 6 -> 7";
 
 	        assertEquals(esperado, saida);
-	    }
     }
 
     @Test
@@ -291,21 +290,5 @@ class GrafoTest {
     
         assertEquals(esperado, saida);
     	
-    }
-
-    @Test
-    void getArestas() {
-    }
-
-    @Test
-    void setArestas() {
-    }
-
-    @Test
-    void getVertices() {
-    }
-
-    @Test
-    void setVertices() {
     }
 }
