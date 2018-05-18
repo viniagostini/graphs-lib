@@ -64,7 +64,7 @@ public class Controller {
     }
 
     public String DFS (Grafo graph, Vertice v) {
-        return graph.BFS(v);
+        return graph.DFS(v);
     }
 
     public boolean connected (Grafo graph) {
