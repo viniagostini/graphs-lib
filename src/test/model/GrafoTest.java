@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -166,7 +165,9 @@ class GrafoTest {
 
         grafo.setVertices(vertices);
 
-        assertEquals("1 - 0 -\n", grafo.BFS(v1), "A busca deve retornar apenas o vertice raiz");
+        assertEquals("1 - 0 -" + System.getProperty("line.separator"),
+                grafo.BFS(v1),
+                "A busca deve retornar apenas o vertice raiz");
 
         Vertice v2 = new Vertice(2);
         vertices.add(v2);
@@ -179,7 +180,10 @@ class GrafoTest {
         grafo.setVertices(vertices);
         grafo.setArestas(arestas);
 
-        assertEquals("1 - 0 -\n2 - 1 1\n", grafo.BFS(v1), "A busca deve retornar o vertice raiz e seu filho");
+        assertEquals("1 - 0 -"+System.getProperty("line.separator")+
+                "2 - 1 1" + System.getProperty("line.separator"),
+                grafo.BFS(v1),
+                "A busca deve retornar o vertice raiz e seu filho");
 
         Vertice v3 = new Vertice(3);
         Vertice v4 = new Vertice(4);
@@ -196,9 +200,13 @@ class GrafoTest {
         grafo.setVertices(vertices);
         grafo.setArestas(arestas);
 
-        assertEquals("1 - 0 -\n2 - 1 1\n5 - 1 1\n3 - 2 5\n4 - 2 5\n" , grafo.BFS(v1),
+        assertEquals("1 - 0 -"+ System.getProperty("line.separator") +
+                        "2 - 1 1"+ System.getProperty("line.separator") +
+                        "5 - 1 1" + System.getProperty("line.separator") +
+                        "3 - 2 5" + System.getProperty("line.separator") +
+                        "4 - 2 5" + System.getProperty("line.separator") ,
+                grafo.BFS(v1),
                 "A busca retorna o vertice raiz e todos os vértices do grafo em largura");
-
     }
 
     @Test
@@ -235,19 +243,60 @@ class GrafoTest {
 
         String saida = grafo.DFS(v4);
 
-        String esperado = "4 - 0 -" + System.lineSeparator()
-                        + "2 - 4 1" + System.lineSeparator()
-                        + "1 - 2 2" + System.lineSeparator()
-                        + "3 - 2 2" + System.lineSeparator()
-                        + "6 - 4 1" + System.lineSeparator()
-                        + "5 - 6 2" + System.lineSeparator()
-                        + "7 - 6 2" + System.lineSeparator();
+        String esperado = "4 - 0 -" + System.getProperty("line.separator")
+                        + "2 - 4 1" + System.getProperty("line.separator")
+                        + "1 - 2 2" + System.getProperty("line.separator")
+                        + "3 - 2 2" + System.getProperty("line.separator")
+                        + "6 - 4 1" + System.getProperty("line.separator")
+                        + "5 - 6 2" + System.getProperty("line.separator")
+                        + "7 - 6 2" + System.getProperty("line.separator");
 
         assertEquals(esperado, saida);
     }
 
     @Test
     void connected() {
+
+        Set<Vertice> vertices = new HashSet<>();
+        Set<Aresta> arestas = new HashSet<>();
+
+        //Vertice não ponderado
+        Vertice v1 = new Vertice(1);
+        Vertice v2 = new Vertice(2);
+        Aresta a1 = new Aresta(v1,v1,1);
+        Aresta a2 = new Aresta(v2,v2,1);
+        vertices.add(v1);vertices.add(v2);
+        arestas.add(a1); arestas.add(a2);
+
+        grafo.setPonderado(false);
+        grafo.setArestas(arestas);
+        grafo.setVertices(vertices);
+
+        assertFalse(grafo.connected(), "O grafo não é conexo");
+        Aresta a3 = new Aresta(v2,v1,1);
+        arestas.add(a3);
+        assertTrue(grafo.connected(), "O grafo é conexo");
+
+        //Vertice ponderado
+        Vertice v3 = new Vertice(3);
+        Aresta a4 = new Aresta(v3,v3,0.9);
+        Aresta a5 = new Aresta(v1,v3,0.7);
+        vertices.add(v3);
+        arestas.add(a4); arestas.add(a5);
+
+        grafo.setPonderado(true);
+        grafo.setArestas(arestas);
+        grafo.setVertices(vertices);
+
+        assertTrue(grafo.connected(), "O grafo é conexo");
+
+        arestas.remove(a3);
+        grafo.setArestas(arestas);
+        assertTrue(grafo.connected(), "O grafo ainda é conexo");
+
+        arestas.remove(a5);
+        grafo.setArestas(arestas);
+        assertTrue(grafo.connected(), "O grafo não é mais conexo");
     }
 
     @Test
@@ -323,12 +372,12 @@ class GrafoTest {
 
         String saida = grafo.mst();
         
-        String esperado = 	"Vertice Pai: 4 Vertice Filho: 6 Peso Aresta: -2.0\n" +
-        					"Vertice Pai: 5 Vertice Filho: 7 Peso Aresta: 0.1\n" +
-        					"Vertice Pai: 6 Vertice Filho: 5 Peso Aresta: 0.5\n" +
-        					"Vertice Pai: 2 Vertice Filho: 6 Peso Aresta: 1.0\n" +
-        					"Vertice Pai: 2 Vertice Filho: 3 Peso Aresta: 2.0\n" +
-        					"Vertice Pai: 2 Vertice Filho: 1 Peso Aresta: 6.0\n";
+        String esperado = 	"Vertice Pai: 4 Vertice Filho: 6 Peso Aresta: -2.0" + System.getProperty("line.separator") +
+        					"Vertice Pai: 5 Vertice Filho: 7 Peso Aresta: 0.1" + System.getProperty("line.separator") +
+        					"Vertice Pai: 6 Vertice Filho: 5 Peso Aresta: 0.5" + System.getProperty("line.separator") +
+        					"Vertice Pai: 2 Vertice Filho: 6 Peso Aresta: 1.0" + System.getProperty("line.separator") +
+        					"Vertice Pai: 2 Vertice Filho: 3 Peso Aresta: 2.0" + System.getProperty("line.separator") +
+        					"Vertice Pai: 2 Vertice Filho: 1 Peso Aresta: 6.0" + System.getProperty("line.separator");
         
     
         assertEquals(esperado, saida);
