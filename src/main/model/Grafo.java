@@ -60,7 +60,8 @@ public class Grafo {
 		Queue<Vertice> fila = new LinkedList<>();
 		int nivel = 0;
 
-		saida.append(raiz.getId()).append(" - ").append(nivel).append(" -").append("\n");
+		saida.append(raiz.getId()).append(" - ").append(nivel).append(" -")
+				.append(System.getProperty("line.separator"));
 		raiz.setVisitado(true);
 		fila.add(raiz);
 
@@ -80,7 +81,8 @@ public class Grafo {
 				filho.setVisitado(true);
 				fila.add(filho);
 
-				saida.append(filho.getId()).append(" - ").append(nivel).append(" ").append(pai.getId()).append("\n");
+				saida.append(filho.getId()).append(" - ").append(nivel).append(" ").append(pai.getId())
+						.append(System.getProperty("line.separator"));
 			}
 		}
 
@@ -151,7 +153,7 @@ public class Grafo {
 
 		if (nivel == 0) {
 			v = getVerticeById(v.getId());
-			saida += v.getId() + " - 0 -" + System.lineSeparator();
+			saida += v.getId() + " - 0 -" + System.getProperty("line.separator");
 		}
 
 		v.setCor(Vertice.Cor.PRETO);
@@ -174,7 +176,7 @@ public class Grafo {
 
 		while (iter.hasNext()) {
 			Vertice vertice = iter.next();
-			saida += vertice.getId() + " - " + v.getId() + " " + (nivel + 1) + System.lineSeparator();
+			saida += vertice.getId() + " - " + v.getId() + " " + (nivel + 1) + System.getProperty("line.separator");
 			saida += visitaDFS(vertice, nivel + 1);
 		}
 		return saida;
@@ -343,7 +345,7 @@ public class Grafo {
 				this.unite(verticeInicial, verticeFinal);
 				peso_mst += peso;
 				result += "Vertice Pai: " + verticeInicial + " Vertice Filho: " + verticeFinal + " Peso Aresta: " + peso
-						+ "\n";
+						+ System.getProperty("line.separator");
 			}
 			vertices_mst++;
 		}

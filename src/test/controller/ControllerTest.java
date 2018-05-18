@@ -171,7 +171,9 @@ class ControllerTest {
 
         grafo.setVertices(vertices);
 
-        assertEquals("1 - 0 -\n", controller.BFS(grafo, v1), "A busca deve retornar apenas o vertice raiz");
+        assertEquals("1 - 0 -" + System.getProperty("line.separator"),
+                grafo.BFS(v1),
+                "A busca deve retornar apenas o vertice raiz");
 
         Vertice v2 = new Vertice(2);
         vertices.add(v2);
@@ -184,7 +186,10 @@ class ControllerTest {
         grafo.setVertices(vertices);
         grafo.setArestas(arestas);
 
-        assertEquals("1 - 0 -\n2 - 1 1\n", controller.BFS(grafo, v1), "A busca deve retornar o vertice raiz e seu filho");
+        assertEquals("1 - 0 -"+System.getProperty("line.separator")+
+                        "2 - 1 1" + System.getProperty("line.separator"),
+                grafo.BFS(v1),
+                "A busca deve retornar o vertice raiz e seu filho");
 
         Vertice v3 = new Vertice(3);
         Vertice v4 = new Vertice(4);
@@ -201,9 +206,13 @@ class ControllerTest {
         grafo.setVertices(vertices);
         grafo.setArestas(arestas);
 
-
-       // assertEquals("1 - 0 - \n2 - 1 1\n3 - 2 5\n4 - 2 5\n5 - 1 1\n" , controller.BFS(grafo, v1),
-       //         "A busca retorna o vertice raiz e todos os vértices do grafo em largura");
+        assertEquals("1 - 0 -"+ System.getProperty("line.separator") +
+                        "2 - 1 1"+ System.getProperty("line.separator") +
+                        "5 - 1 1" + System.getProperty("line.separator") +
+                        "3 - 2 5" + System.getProperty("line.separator") +
+                        "4 - 2 5" + System.getProperty("line.separator") ,
+                grafo.BFS(v1),
+                "A busca retorna o vertice raiz e todos os vértices do grafo em largura");
     }
 
     @Test
@@ -392,12 +401,12 @@ class ControllerTest {
 
 		String saida = grafo.mst();
 
-		String esperado = "Vertice Pai: 4 Vertice Filho: 6 Peso Aresta: -2.0\n"
-				+ "Vertice Pai: 5 Vertice Filho: 7 Peso Aresta: 0.1\n"
-				+ "Vertice Pai: 6 Vertice Filho: 5 Peso Aresta: 0.5\n"
-				+ "Vertice Pai: 2 Vertice Filho: 6 Peso Aresta: 1.0\n"
-				+ "Vertice Pai: 2 Vertice Filho: 3 Peso Aresta: 2.0\n"
-				+ "Vertice Pai: 2 Vertice Filho: 1 Peso Aresta: 6.0\n";
+        String esperado = 	"Vertice Pai: 4 Vertice Filho: 6 Peso Aresta: -2.0" + System.getProperty("line.separator") +
+                "Vertice Pai: 5 Vertice Filho: 7 Peso Aresta: 0.1" + System.getProperty("line.separator") +
+                "Vertice Pai: 6 Vertice Filho: 5 Peso Aresta: 0.5" + System.getProperty("line.separator") +
+                "Vertice Pai: 2 Vertice Filho: 6 Peso Aresta: 1.0" + System.getProperty("line.separator") +
+                "Vertice Pai: 2 Vertice Filho: 3 Peso Aresta: 2.0" + System.getProperty("line.separator") +
+                "Vertice Pai: 2 Vertice Filho: 1 Peso Aresta: 6.0" + System.getProperty("line.separator");
 
 		assertEquals(esperado, saida);
 	}
