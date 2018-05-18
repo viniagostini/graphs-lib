@@ -401,3 +401,4 @@ class ControllerTest {
 
 		assertEquals(esperado, saida);
 	}
+}
