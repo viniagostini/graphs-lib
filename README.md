@@ -19,7 +19,7 @@ O grupo de densevolvimento é composto por 5 alunos. Todos trabalharam ativament
 O projeto foi desenvolvido em Java e utilizou-se o Eclipse como IDE principal.
 
 
-> 🤖 **Graphs-libs está em produção, sempre melhorando**. Porém pode ser utilizado sem danos maiores, basta baixar o arquivo e adicionar ao build path de seu projeto;
+> **Graphs-libs está em produção, sempre melhorando**. Porém pode ser utilizado sem danos maiores, basta baixar o arquivo e adicionar ao build path de seu projeto;
 <br/>
 
 ### motivacao
